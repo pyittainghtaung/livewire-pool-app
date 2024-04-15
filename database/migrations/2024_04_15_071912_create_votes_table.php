@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            // Make Relation Ship with Option
+            $table->foreignIdFor(\App\Models\Option::class)->constrained();
         });
     }
 
