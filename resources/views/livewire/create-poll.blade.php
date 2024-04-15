@@ -1,3 +1,7 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
+    <form>
+        <label>Poll Title</label>
+        <input type="text" wire:model.live="title" />
+        Current Title: {{ $title }}
+    </form>
 </div>
