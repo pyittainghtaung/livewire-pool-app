@@ -10,6 +10,15 @@ class CreatePoll extends Component
     public $title;
     public $options = ['First'];
 
+    protected $rules = [
+        'title' => 'required|min:3|max:255',
+        'options' => 'required|array|min:1|max:10',
+        'options.*' => 'required|min:1|max:255'
+    ];
+
+    protected $messages = [
+        'options.*' => 'The Option can\'t be empty!'
+    ];
 
     public function render()
     {
@@ -28,8 +37,15 @@ class CreatePoll extends Component
         $this->options = array_values($this->options);
     }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
+
     public function createPoll()
     {
+        $this->validate();
         // First Style code
         // $poll = Poll::create([
         //     'title' => $this->title
@@ -39,9 +55,9 @@ class CreatePoll extends Component
         //     $poll->options()->create(['name' => $optionName]);
         // }
 
-        // Second Style Code. Both styles work same function
-        Poll::create(['title'=>$this->title])->options()->createMany(
-            collect($this->options)->map(fn($option)=>['name'=>$option])->all()
+        // Second Style Code. Both styles work same  function
+        Poll::create(['title' => $this->title])->options()->createMany(
+            collect($this->options)->map(fn ($option) => ['name' => $option])->all()
         );
 
 
