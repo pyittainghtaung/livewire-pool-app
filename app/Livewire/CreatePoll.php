@@ -63,6 +63,9 @@ class CreatePoll extends Component
 
 
         $this->reset(['title', 'options']);
+        // $this->emit('pollCreated');
+        // Replace emit with dispatch in livewire 3
+        $this->dispatch('pollCreated');
     }
 
     // public function mount()
